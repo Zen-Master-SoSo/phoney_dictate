@@ -26,20 +26,21 @@ shown there to the clipboard.
 
 7. Paste the text anywhere.
 
-In the phone's browser, there is a single button which looks like a little
-broom. That button clears the text area. Remember, whatever is displayed in the
-browser on your phone will be sent to your computer. After you clear the text,
-and enter new text, only the new text will be copied over. The old text will be
-gone.
+Whatever is displayed in the browser on your phone will be sent to your
+computer. After you clear the text, and enter new text, only the new text will
+be copied over. The old text will be gone.
 
 Ctrl-Q exits the Phoney Dictate application on your computer. The browser component
 is just a webpage, so you would close it like you normally would any webpage.
 
 ## Troubleshooting
 
-Both your phone and your computer need to be on the same local network. Usually this is the case if your phone and computer are connected to the same router.
+Both your phone and your computer need to be on the same local network. Usually
+this is the case if your phone and computer are connected to the same router.
 
-This should also work if your computer is set up as a hot spot, although it hasn't been tested.
+This should also work if your computer is set up as a hot spot, although it
+hasn't been tested.
 
-If you have a firewall installed on your computer, (such as UFW), make sure that port 8585 is open for listening.
+If you have a firewall installed on your computer, (such as UFW), make sure
+that port 8585 is open for listening.
 
