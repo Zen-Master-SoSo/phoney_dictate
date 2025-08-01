@@ -34,7 +34,7 @@ from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QMainWindow, QPla
 from qt_extras import SigBlock, ShutUpQT
 from phoney_dictate.qrcode import QRCodeDialog
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
 class WorkerSignals(QObject):
