@@ -102,7 +102,7 @@ body {
 	height: 100vh;
 	margin: 0;
 	padding: 0;
-	background-color: #EDEDED;
+	background-color: #E7E7E7;
 	font-family: sans-serif;
 	font-size: 10pt;
 }
@@ -110,30 +110,37 @@ body {
 header {
 	flex-direction: row;
 	padding: 2px;
+	gap: 3px;
 }
 
 header button {
 	flex-grow: 1;
+	padding: 6px;
 }
 
-button.sizer {
-	font-size: 23px;
+header button.sizer {
+	font-style: italic;
 }
 
 #text-area {
-	padding: 12px;
-	border: 2px solid #EDEDED;
 	flex-grow: 1;
-	background-color: #E7E7E7;
+	padding: 10px;
+	border-color: #E7E7E7;
+	border-style: solid;
+	border-width: 0 4px;
+}
+
+#text-area:focus {
+	outline: none;
 }
 
 #text-area.comms-up {
-	background-color: #FFF;
+	background-color: #FFFFFF;
 }
 
 #text-area.comms-down {
 	color: #555;
-	background-color: #BAAFAF;
+	background-color: #C9C0C0;
 }
 
 footer {
@@ -146,9 +153,9 @@ footer {
 </head>
 <body>
 	<header>
-		<button class="sizer" id="reduce-button" title="Reduce text size">-</button>
+		<button class="sizer" id="reduce-button" title="Reduce text size">Aa -</button>
 		<button id="clear-button" title="Clear contents and start over">Clear</button>
-		<button class="sizer" id="enlarge-button" title="Enlarge text size">+</button>
+		<button class="sizer" id="enlarge-button" title="Enlarge text size">Aa +</button>
 	</header>
 	<textarea id="text-area"></textarea>
 	<footer>Dictate text in the area above</footer>

@@ -81,6 +81,15 @@
             <property name="text">
              <string>-</string>
             </property>
+            <property name="icon">
+             <iconset theme="font-x-generic"/>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>12</width>
+              <height>12</height>
+             </size>
+            </property>
             <property name="flat">
              <bool>false</bool>
             </property>
@@ -100,6 +109,9 @@
             </property>
             <property name="text">
              <string>+</string>
+            </property>
+            <property name="icon">
+             <iconset theme="font-x-generic"/>
             </property>
             <property name="flat">
              <bool>false</bool>
@@ -168,5 +180,38 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>b_smaller</sender>
+   <signal>clicked()</signal>
+   <receiver>text_box</receiver>
+   <slot>zoomOut()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>288</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>b_larger</sender>
+   <signal>clicked()</signal>
+   <receiver>text_box</receiver>
+   <slot>zoomIn()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>139</x>
+     <y>73</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>212</x>
+     <y>127</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
