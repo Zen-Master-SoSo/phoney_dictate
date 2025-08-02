@@ -36,6 +36,8 @@ from phoney_dictate.qrcode import QRCodeDialog
 
 __version__ = "1.0.3"
 
+MINIMUM_POINT_SIZE = 9
+MAXIMUM_POINT_SIZE = 32
 
 class WorkerSignals(QObject):
 	"""
@@ -160,8 +162,15 @@ class MainWindow(QMainWindow):
 		self.b_icon.setIcon(QIcon(pixmap))
 		self.b_icon.clicked.connect(self.slot_show_qrcode)
 		self.b_copy.clicked.connect(self.slot_copy)
-		shortcut = QShortcut(QKeySequence('Ctrl+Q'), self)
-		shortcut.activated.connect(self.close)
+		for scdef in [
+			(QKeySequence.Quit, self.close),
+			(QKeySequence.Copy, self.slot_copy),
+			(QKeySequence.ZoomOut, self.text_box.zoomOut),
+			(QKeySequence.ZoomIn, self.text_box.zoomIn)
+		]:
+			sc = QShortcut(scdef[0], self)
+			sc.setContext(Qt.ApplicationShortcut)
+			sc.activated.connect(scdef[1])
 		sock = socket(AF_INET, SOCK_DGRAM)
 		sock.connect(('8.8.8.8', 7))
 		self.url = f'http://{sock.getsockname()[0]}:8585'
@@ -175,7 +184,7 @@ class MainWindow(QMainWindow):
 
 	@pyqtSlot()
 	def slot_copy(self):
-		text = self.textBox.toPlainText()
+		text = self.text_box.toPlainText()
 		if len(text):
 			QGuiApplication.clipboard().setText(text)
 			self.statusbar.showMessage('Text copied to the clipboard', 2000)
@@ -194,7 +203,7 @@ class MainWindow(QMainWindow):
 	def show_status(self, obj):
 		self.statusbar.showMessage(obj['stat'], obj['dur'])
 		if obj['msg'] is not None:
-			self.textBox.setPlainText(obj['msg'])
+			self.text_box.setPlainText(obj['msg'])
 
 	def server_error(self, err):
 		print(err)
