@@ -34,7 +34,7 @@ from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QMainWindow, QPla
 from qt_extras import SigBlock, ShutUpQT
 from phoney_dictate.qrcode import QRCodeDialog
 
-__version__ = "1.0.5"
+__version__ = "1.1.0"
 
 MINIMUM_POINT_SIZE = 9
 MAXIMUM_POINT_SIZE = 32
