@@ -22,10 +22,12 @@ Entry point to the phoney-dictate application
 """
 import sys
 from PyQt5.QtWidgets import QApplication
+from qt_extras import exceptions_hook
 from phoney_dictate import MainWindow
 
 def main():
 	app = QApplication(sys.argv)
+	sys.excepthook = exceptions_hook
 	window = MainWindow()
 	window.show()
 	sys.exit(app.exec())
