@@ -33,6 +33,7 @@ from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QMainWindow, QPla
 							QWidget, QShortcut
 from qt_extras import SigBlock, ShutUpQT
 from phoney_dictate.qrcode import QRCodeDialog
+from phoney_dictate.install import install
 
 __version__ = "1.2.0"
 
@@ -158,6 +159,7 @@ class MainWindow(QMainWindow):
 			self.restoreGeometry(settings.value('geometry'))
 		if settings.contains('windowstate'):
 			self.restoreState(settings.value('windowstate'))
+		install()
 		pixmap = QPixmap(join(dirname(__file__), 'res', 'qrcode.svg'))
 		self.b_icon.setIcon(QIcon(pixmap))
 		self.b_icon.clicked.connect(self.slot_show_qrcode)
