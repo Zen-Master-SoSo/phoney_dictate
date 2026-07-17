@@ -35,8 +35,8 @@ def install():
 		xdg.install()
 
 if __name__ == '__main__':
-	log_format = "[%(filename)24s:%(lineno)4d] %(levelname)-8s %(message)s"
-	logging.basicConfig(level = logging.DEBUG, format = log_format)
+	logging.basicConfig(level = logging.DEBUG,
+		format = "[%(filename)24s:%(lineno)4d] %(levelname)-8s %(message)s")
 	install()
 
 

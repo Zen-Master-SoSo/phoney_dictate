@@ -70,6 +70,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 	Defines how to handle requests to the http server.
 	"""
 
+	# pylint: disable-next = invalid-name
 	def do_GET(self):
 		Server().show_progress(self.requestline, None, 1500)
 		if self.path == '/':
@@ -95,6 +96,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 		self.send_header('Last-Modified', self.date_time_string(stat.st_mtime))
 		self.end_headers()
 
+	# pylint: disable-next = invalid-name
 	def do_POST(self):
 		content_length = int(self.headers['Content-Length'])
 		body = self.rfile.read(content_length)
@@ -196,6 +198,7 @@ class MainWindow(QMainWindow):
 		dlg = QRCodeDialog(self, self.url)
 		dlg.exec_()
 
+	# pylint: disable-next = invalid-name
 	def closeEvent(self, _):
 		Server().quit()
 		settings = QSettings('ZenSoSo', 'phoney-dictate')

@@ -20,11 +20,11 @@
 """
 A voice recognition "app" which sends your cell phone's voice recognition input to your computer.
 """
-from PyQt5.QtCore import QMargins
-from PyQt5.QtWidgets import QApplication, QDialog, QVBoxLayout, QSizePolicy
-from PyQt5.QtSvg import QSvgWidget
-
+from PyQt5.QtCore import Qt, QRect
+from PyQt5.QtGui import QPainter, QPixmap
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel
 from qrcodegen import QrCode
+
 
 class QRCodeDialog(QDialog):
 	"""
@@ -34,32 +34,21 @@ class QRCodeDialog(QDialog):
 	def __init__(self, parent, url):
 		super().__init__(parent)
 		qrcode = QrCode.encode_text(url, QrCode.Ecc.MEDIUM)
-		size = qrcode.get_size()
-		parts = [ f"M{x + 4},{y + 4}h1v1h-1z" \
-			for y in range(size) \
-			for x in range(size)
-			if qrcode.get_module(x, y) ]
-		svg = f"""<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 {size + 8} {size + 8}" stroke="none">
-	<rect width="100%" height="100%" fill="#FFFFFF"/>
-	<path d="{" ".join(parts)}" fill="#000000"/>
-</svg>
-"""
-		widget = QSvgWidget(self)
-		widget.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
-		widget.renderer().load(bytearray(svg.encode('utf-8')))
+		qrsize = qrcode.get_size()
+		block_size = 420 // qrsize
+		pixmap = QPixmap(qrsize * block_size, qrsize * block_size)
+		painter = QPainter(pixmap)
+		for x in range(qrsize):
+			for y in range(qrsize):
+				rect = QRect(x * block_size, y * block_size, block_size, block_size)
+				painter.fillRect(rect, Qt.black if qrcode.get_module(x, y) else Qt.white)
+		painter.end()
+		label = QLabel(self)
+		label.setPixmap(pixmap)
+		label.setFixedSize(qrsize * block_size, qrsize * block_size)
 		lo = QVBoxLayout()
-		lo.addWidget(widget)
+		lo.addWidget(label)
 		self.setLayout(lo)
-		size = QApplication.instance().primaryScreen().size()
-		size = min(620, size.height(), size.width())
-		self.resize(size, size)
-
-if __name__ == '__main__':
-	app = QApplication([])
-	dialog = QRCodeDialog(None, 'https://github.com/nayuki/QR-Code-generator/blob/master/python/qrcodegen-demo.py')
-	dialog.exec_()
 
 
 #  end phoney_dictate/qrcode.py
