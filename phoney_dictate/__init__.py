@@ -32,8 +32,8 @@ from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QMainWindow, QPla
 							QPushButton, QSizePolicy, QSpacerItem, QStatusBar, QVBoxLayout, \
 							QWidget, QShortcut
 from qt_extras import SigBlock, ShutUpQT
+from xdg_soso import XDGSetup
 from phoney_dictate.qrcode import QRCodeDialog
-from phoney_dictate.install import install
 
 __version__ = "1.4.0"
 
@@ -161,7 +161,6 @@ class MainWindow(QMainWindow):
 			self.restoreGeometry(settings.value('geometry'))
 		if settings.contains('windowstate'):
 			self.restoreState(settings.value('windowstate'))
-		install()
 		pixmap = QPixmap(join(dirname(__file__), 'res', 'qrcode.svg'))
 		self.b_icon.setIcon(QIcon(pixmap))
 		self.b_icon.clicked.connect(self.slot_show_qrcode)
@@ -216,6 +215,23 @@ class MainWindow(QMainWindow):
 
 	def finished(self):
 		pass
+
+
+# -------------------------------------------------------------------
+# XDGSetup class
+
+class PhoneyDictateSetup(XDGSetup):
+	"""
+	Installer with all the variables necessary for installing and uninstalling.
+	"""
+
+	def __init__(self):
+		super().__init__('phoney_dictate', 'Phoney Dictate')
+		self._comment = "Copies text from a browser to your desktop in real time - " + \
+			"ideal for using your voice's voice input instead of your keyboard."
+		self._application_icon = join(dirname(__file__), 'res', 'phoney-dictate.svg')
+		self._categories = ['Utilities']
+		self._keywords = ['Voice recognition', 'Voice input']
 
 
 #  end phoney_dictate/__init__.py
