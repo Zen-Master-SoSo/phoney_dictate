@@ -35,7 +35,7 @@ from qt_extras import SigBlock, ShutUpQT
 from xdg_soso import XDGSetup
 from phoney_dictate.qrcode import QRCodeDialog
 
-__version__ = "1.4.0"
+__version__ = "1.5.0"
 
 MINIMUM_POINT_SIZE = 9
 MAXIMUM_POINT_SIZE = 32
