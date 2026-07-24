@@ -21,7 +21,6 @@
 A voice recognition "app" which sends your cell phone's voice recognition input to your computer.
 """
 import sys, argparse
-from os import getlogin
 from PyQt5.QtWidgets import QApplication
 from qt_extras import exceptions_hook
 from xdg_soso import is_xdg
@@ -45,10 +44,8 @@ menu.""")
 
 	if options.install:
 		PhoneyDictateSetup().install()
-		print(f'Successfully installed PhoneyDictate for {getlogin()} on this machine.')
 	elif options.uninstall:
 		PhoneyDictateSetup().uninstall()
-		print(f'Successfully uninstalled PhoneyDictate for {getlogin()} on this machine.')
 	else:
 		app = QApplication(sys.argv)
 		sys.excepthook = exceptions_hook

@@ -9,7 +9,7 @@ dependencies = [
 	"PyQt5",
 	"qrcodegen",
 	"soso_qt_extras >= 1.7.0",
-	"xdg_soso >= 1.0.2"
+	"xdg_soso >= 1.1.0"
 ]
 
 [project.urls]
