@@ -12,7 +12,7 @@ A voice recognition "app" which sends your cell phone's voice recognition input 
 
 	$ python3 -m phoney_dictate
 
-<img width="511" height="482" alt="Main Window" src="https://github.com/user-attachments/assets/e5e606a1-4497-43d1-88ad-8ba312d100a7" />
+<img width="511" height="486" alt="main-window" src="https://github.com/user-attachments/assets/88ce696d-6907-4f98-b5d1-8a956a8a169f" />
 
 4. Generate a bar code - click on the "QR Code" button at the bottom left
 corner of the window.
