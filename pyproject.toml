@@ -7,7 +7,8 @@ classifiers = ["License :: OSI Approved :: GNU General Public License v3 or late
 dynamic = ["version", "description"]
 dependencies = [
 	"PyQt5",
-	"qrcodegen",
+	"netifaces >= 0.11.0",
+	"qrcodegen >= 1.8.0",
 	"soso_qt_extras >= 1.7.0",
 	"xdg_soso >= 1.1.0"
 ]

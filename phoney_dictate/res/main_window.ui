@@ -134,12 +134,32 @@
          </spacer>
         </item>
         <item>
-         <widget class="QLabel" name="lbl_link">
-          <property name="text">
-           <string/>
-          </property>
+         <widget class="QLabel" name="lbl_address">
           <property name="alignment">
            <set>Qt::AlignCenter</set>
+          </property>
+          <property name="toolTip">
+           <string>The address on this computer which your phone's browser should connect to. You can use "QR Code" below as well.</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="lbl_subnet">
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <property name="toolTip">
+           <string>The subnet which you want to allow phones on your network to connect from.</string>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
           </property>
          </widget>
         </item>

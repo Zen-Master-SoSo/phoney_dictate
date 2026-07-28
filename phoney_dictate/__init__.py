@@ -21,24 +21,26 @@
 A voice recognition "app" which sends your cell phone's voice recognition input to your computer.
 """
 import traceback, sys, os
-from os.path import dirname, join
-from socket import socket, AF_INET, SOCK_DGRAM
+from pathlib import Path
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from PyQt5 import uic
-from PyQt5.QtCore import 	Qt, pyqtSignal, pyqtSlot, QCoreApplication, QObject, QSettings, \
-							QMetaObject, QRunnable, QSize, QThreadPool
-from PyQt5.QtGui import 	QFont, QGuiApplication, QIcon, QPixmap, QKeySequence
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QMainWindow, QPlainTextEdit, \
-							QPushButton, QSizePolicy, QSpacerItem, QStatusBar, QVBoxLayout, \
-							QWidget, QShortcut
+from PyQt5.QtCore import (Qt, pyqtSignal, pyqtSlot, QCoreApplication, QObject,
+	QSettings, QMetaObject, QRunnable, QSize, QThreadPool)
+from PyQt5.QtGui import QFont, QGuiApplication, QIcon, QPixmap, QKeySequence
+from PyQt5.QtWidgets import (QApplication, QHBoxLayout, QLabel, QMainWindow,
+	QPlainTextEdit, QPushButton, QSizePolicy, QSpacerItem, QStatusBar, QVBoxLayout,
+	QWidget, QShortcut)
 from qt_extras import SigBlock, ShutUpQT
 from xdg_soso import XDGSetup
 from phoney_dictate.qrcode import QRCodeDialog
+from phoney_dictate.iface import address_subnet
 
 __version__ = "1.5.0"
 
 MINIMUM_POINT_SIZE = 9
 MAXIMUM_POINT_SIZE = 32
+RESPATH = Path(__file__).parent / 'res'
+
 
 class WorkerSignals(QObject):
 	"""
@@ -74,18 +76,17 @@ class RequestHandler(BaseHTTPRequestHandler):
 	def do_GET(self):
 		Server().show_progress(self.requestline, None, 1500)
 		if self.path == '/':
-			path = join(dirname(__file__), 'res', 'interface.html')
 			self.send_response(200)
 			self.send_header('Content-Type', 'text/html')
-			self.send_stat_headers(path)
-			with open(path, encoding='utf-8') as fh:
-				self.wfile.write(fh.read().encode())
+			interface_path = RESPATH / 'interface.html'
+			self.send_stat_headers(str(interface_path))
+			self.wfile.write(interface_path.read_text().encode())
 		elif self.path == '/favicon.ico':
-			path = join(dirname(__file__), 'res', 'favicon.ico')
 			self.send_response(200)
 			self.send_header('Content-Type', 'image/vnd.microsoft.icon')
-			self.send_stat_headers(path)
-			with open(path, mode='rb') as fh:
+			favicon_path = RESPATH / 'favicon.ico'
+			self.send_stat_headers(str(favicon_path))
+			with open(favicon_path, mode='rb') as fh:
 				self.wfile.write(fh.read())
 		else:
 			self.send_response(204)	# No Content
@@ -155,13 +156,15 @@ class MainWindow(QMainWindow):
 	def __init__(self):
 		super().__init__(None)
 		with ShutUpQT():
-			uic.loadUi(join(dirname(__file__), 'res', 'main_window.ui'), self)
+			uic.loadUi(str(RESPATH / 'main_window.ui'), self)
 		settings = QSettings('ZenSoSo', 'phoney-dictate')
 		if settings.contains('geometry'):
 			self.restoreGeometry(settings.value('geometry'))
 		if settings.contains('windowstate'):
 			self.restoreState(settings.value('windowstate'))
-		pixmap = QPixmap(join(dirname(__file__), 'res', 'qrcode.svg'))
+		icon_path = RESPATH / 'phoney-dictate.svg'
+		self.setWindowIcon(QIcon(str(icon_path)))
+		pixmap = QPixmap(str(RESPATH / 'qrcode.svg'))
 		self.b_icon.setIcon(QIcon(pixmap))
 		self.b_icon.clicked.connect(self.slot_show_qrcode)
 		self.b_copy.clicked.connect(self.slot_copy)
@@ -174,10 +177,9 @@ class MainWindow(QMainWindow):
 			sc = QShortcut(scdef[0], self)
 			sc.setContext(Qt.ApplicationShortcut)
 			sc.activated.connect(scdef[1])
-		sock = socket(AF_INET, SOCK_DGRAM)
-		sock.connect(('8.8.8.8', 7))
-		self.url = f'http://{sock.getsockname()[0]}:8585'
-		self.lbl_link.setText(f'<a href="{self.url}">link</a>')
+		address, subnet = address_subnet()
+		self.lbl_address.setText(f'<a href="{address}">Address: {address}</a>')
+		self.lbl_subnet.setText(f'<a href="{subnet}">Subnet: {subnet}</a>')
 		self.threadpool = QThreadPool()
 		server = Server()
 		server.signals.result.connect(self.show_status)
@@ -229,7 +231,7 @@ class PhoneyDictateSetup(XDGSetup):
 		super().__init__('phoney_dictate', 'Phoney Dictate')
 		self._comment = "Copies text from a browser to your desktop in real time - " + \
 			"ideal for using your voice's voice input instead of your keyboard."
-		self._application_icon = join(dirname(__file__), 'res', 'phoney-dictate.svg')
+		self._application_icon = RESPATH / 'phoney-dictate.svg'
 		self._categories = ['Utilities']
 		self._keywords = ['Voice recognition', 'Voice input']
 

@@ -38,8 +38,8 @@ your menu or Dash.""")
 		parser.add_argument('--uninstall', '-u', action = 'store_true',
 			help = """Remove PhoneyDictate from your desktop environment.
 The program will still be on your computer, and can be called from the command
-line as "musecbox", but you won't be able to see it in your desktop applications
-menu.""")
+line as "phoney-dictate", but you won't be able to see it in your desktop
+applications menu.""")
 	options = parser.parse_args()
 
 	if options.install:

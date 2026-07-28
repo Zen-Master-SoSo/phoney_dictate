@@ -20,7 +20,7 @@ corner of the window.
 <img width="620" height="648" alt="Barcode popup" src="https://github.com/user-attachments/assets/59342bf2-2c91-4cfa-8fa7-8c6622dadc1f" />
 
 5. Scan the code with your phone and open the link in your browser. (You may
-have to use a tool like "Binary Eye")
+have to use a tool like "Binary Eye" installed on your cell phone.)
 
 6. In your phone's browser, place the cursor in the text area. Whatever you
 type or dictate there will appear on the Phoney Dictate application.
@@ -46,20 +46,18 @@ This should also work if your computer is set up as a hot spot, although it
 hasn't been tested.
 
 If you have a firewall installed on your computer, (such as UFW), make sure
-that port **8585** is open for listening.
+that port **8585** is open for listening. The Phoney Dictate app shows what
+subnet to allow for secure connections. It's shown just above the QR Code
+button.
 
 On machines with UFW:
 
 ```bash
 $ sudo ufw allow in from <your subnet> port 8585 comment "Phoney Dictate"
 ```
-Replace <your subnet> with the correct value for your home network. Mine is "192.168.1.0/24". 
-You can use the "ip" command to get the correct subnet:
 
-```bash
-$ ip addr
-[...]
-3: wlan0: <BROADCAST,MULTICAST...
-    [...]
-    inet 192.168.1.180/24 brd ...
-```
+Replace <your subnet> with the correct value for your home network, shown in
+the app.
+
+
+-----
