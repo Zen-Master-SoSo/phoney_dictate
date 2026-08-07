@@ -35,7 +35,7 @@ from xdg_soso import XDGSetup
 from phoney_dictate.qrcode import QRCodeDialog
 from phoney_dictate.iface import address_subnet
 
-__version__ = "1.6.0"
+__version__ = "1.6.1"
 
 MINIMUM_POINT_SIZE = 9
 MAXIMUM_POINT_SIZE = 32
